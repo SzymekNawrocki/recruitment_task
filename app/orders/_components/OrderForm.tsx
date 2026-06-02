@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import Link from 'next/link'
 import type { CatalogItem, Order, OrderItem } from '@/app/generated/prisma/client'
 import { createOrder, updateOrder } from '../actions'
+import { useT } from '@/app/_components/LanguageProvider'
 
 type ValidationErrors = Record<string, string>
 
 type LineItem = {
-  catalogId: string
   name: string
   quantity: number
   unitValue: number
@@ -19,12 +20,13 @@ type Props = {
 }
 
 const PRIORITY_OPTIONS = [
-  { value: 'low', label: 'Niski' },
-  { value: 'medium', label: 'Średni' },
-  { value: 'high', label: 'Wysoki' },
+  { value: 'low', key: 'low' as const },
+  { value: 'medium', key: 'medium' as const },
+  { value: 'high', key: 'high' as const },
 ]
 
 export default function OrderForm({ catalog, order }: Props) {
+  const t = useT()
   const [isPending, startTransition] = useTransition()
   const [errors, setErrors] = useState<ValidationErrors>({})
 
@@ -35,7 +37,6 @@ export default function OrderForm({ catalog, order }: Props) {
 
   const [lines, setLines] = useState<LineItem[]>(
     order?.items.map((item) => ({
-      catalogId: '',
       name: item.name,
       quantity: item.quantity,
       unitValue: item.unitValue,
@@ -53,7 +54,7 @@ export default function OrderForm({ catalog, order }: Props) {
           i === existing ? { ...l, quantity: Math.min(20, l.quantity + 1) } : l
         )
       }
-      return [...prev, { catalogId: item.id, name: item.name, quantity: 1, unitValue: item.unitValue }]
+      return [...prev, { name: item.name, quantity: 1, unitValue: item.unitValue }]
     })
   }
 
@@ -98,39 +99,39 @@ export default function OrderForm({ catalog, order }: Props) {
       )}
 
       <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <h2 className="font-semibold text-gray-800">Dane zamawiającego</h2>
+        <h2 className="font-semibold text-gray-800">{t.form.sectionInfo}</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Imię i nazwisko" error={errors.employeeName}>
+          <Field label={t.form.employeeName} error={errors.employeeName}>
             <input
               className={input(!!errors.employeeName)}
               value={employeeName}
               onChange={(e) => setEmployeeName(e.target.value)}
-              placeholder="Jan Kowalski"
+              placeholder={t.form.employeePlaceholder}
             />
           </Field>
 
-          <Field label="Dział" error={errors.department}>
+          <Field label={t.form.department} error={errors.department}>
             <input
               className={input(!!errors.department)}
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
-              placeholder="np. IT, HR, Finanse"
+              placeholder={t.form.departmentPlaceholder}
             />
           </Field>
         </div>
 
-        <Field label="Uzasadnienie" error={errors.justification}>
+        <Field label={t.form.justification} error={errors.justification}>
           <textarea
             className={input(!!errors.justification) + ' resize-none'}
             rows={3}
             value={justification}
             onChange={(e) => setJustification(e.target.value)}
-            placeholder="Opisz potrzebę zakupu..."
+            placeholder={t.form.justificationPlaceholder}
           />
         </Field>
 
-        <Field label="Priorytet" error={errors.priority}>
+        <Field label={t.form.priority} error={errors.priority}>
           <select
             className={input(!!errors.priority)}
             value={priority}
@@ -138,7 +139,7 @@ export default function OrderForm({ catalog, order }: Props) {
           >
             {PRIORITY_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>
-                {o.label}
+                {t.priority[o.key]}
               </option>
             ))}
           </select>
@@ -146,7 +147,7 @@ export default function OrderForm({ catalog, order }: Props) {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <h2 className="font-semibold text-gray-800">Katalog sprzętu</h2>
+        <h2 className="font-semibold text-gray-800">{t.form.sectionCatalog}</h2>
         {errors.items && <p className="text-sm text-red-600">{errors.items}</p>}
 
         {Object.entries(byCategory).map(([cat, items]) => (
@@ -171,7 +172,7 @@ export default function OrderForm({ catalog, order }: Props) {
 
       {lines.length > 0 && (
         <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-3">
-          <h2 className="font-semibold text-gray-800">Wybrane pozycje</h2>
+          <h2 className="font-semibold text-gray-800">{t.form.sectionItems}</h2>
           <div className="divide-y divide-gray-100">
             {lines.map((line, i) => (
               <div key={i} className="flex items-center gap-3 py-2">
@@ -219,33 +220,29 @@ export default function OrderForm({ catalog, order }: Props) {
           </div>
 
           <div className="pt-2 border-t border-gray-100 flex justify-between items-center">
-            <span className="text-sm text-gray-500">Łącznie</span>
+            <span className="text-sm text-gray-500">{t.form.subtotal}</span>
             <span className={`text-lg font-semibold ${overBudget ? 'text-red-600' : 'text-gray-900'}`}>
               {total.toFixed(2)} PLN
             </span>
           </div>
-          {overBudget && (
-            <p className="text-xs text-red-600">
-              Przekroczono limit 5 000 PLN. Zmień priorytet na &quot;Wysoki&quot;.
-            </p>
-          )}
+          {overBudget && <p className="text-xs text-red-600">{t.form.overBudget}</p>}
           {errors.total && <p className="text-sm text-red-600">{errors.total}</p>}
         </div>
       )}
 
       <div className="flex gap-3 justify-end">
-        <a
+        <Link
           href="/orders"
           className="px-4 py-2 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
         >
-          Anuluj
-        </a>
+          {t.form.cancel}
+        </Link>
         <button
           type="submit"
           disabled={isPending}
           className="px-5 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 disabled:opacity-50 transition-colors"
         >
-          {isPending ? 'Zapisywanie…' : order ? 'Zapisz zmiany' : 'Złóż zamówienie'}
+          {isPending ? t.form.saving : order ? t.form.save : t.form.submit}
         </button>
       </div>
     </form>

@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { prisma } from '@/lib/prisma'
+import { getDict, LANG_COOKIE, type Lang } from '@/lib/i18n'
 import AdminActions from './_components/AdminActions'
 
 const PRIORITY_BADGE: Record<string, string> = {
@@ -7,13 +9,12 @@ const PRIORITY_BADGE: Record<string, string> = {
   medium: 'bg-yellow-100 text-yellow-800',
   high: 'bg-red-100 text-red-700',
 }
-const PRIORITY_LABEL: Record<string, string> = {
-  low: 'Niski',
-  medium: 'Średni',
-  high: 'Wysoki',
-}
 
 export default async function AdminPage() {
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get(LANG_COOKIE)?.value ?? 'pl') as Lang
+  const t = getDict(lang)
+
   const pending = await prisma.order.findMany({
     where: { status: 'PENDING' },
     include: { items: true },
@@ -22,14 +23,14 @@ export default async function AdminPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-6">Panel admina</h1>
+      <h1 className="text-2xl font-semibold mb-6">{t.admin.title}</h1>
 
       {pending.length === 0 ? (
         <div className="text-center py-20 text-gray-400">
-          <p className="text-lg">Brak oczekujących zamówień</p>
+          <p className="text-lg">{t.admin.empty}</p>
           <p className="text-sm mt-1">
             <Link href="/orders" className="text-gray-600 underline">
-              Zobacz wszystkie zamówienia
+              {t.admin.emptyLink}
             </Link>
           </p>
         </div>
@@ -41,10 +42,7 @@ export default async function AdminPage() {
               0
             )
             return (
-              <div
-                key={order.id}
-                className="bg-white rounded-xl border border-gray-200 p-5 space-y-4"
-              >
+              <div key={order.id} className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
@@ -54,21 +52,19 @@ export default async function AdminPage() {
                       >
                         {order.employeeName}
                       </Link>
-                      <span
-                        className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${PRIORITY_BADGE[order.priority] ?? 'bg-gray-100 text-gray-600'}`}
-                      >
-                        {PRIORITY_LABEL[order.priority] ?? order.priority}
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${PRIORITY_BADGE[order.priority] ?? 'bg-gray-100 text-gray-600'}`}>
+                        {t.priority[order.priority as keyof typeof t.priority] ?? order.priority}
                       </span>
                     </div>
                     <p className="text-sm text-gray-500">
                       {order.department} &middot;{' '}
-                      {new Date(order.createdAt).toLocaleDateString('pl-PL')}
+                      {new Date(order.createdAt).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pl-PL')}
                     </p>
                     <p className="text-sm text-gray-600 mt-1">{order.justification}</p>
                   </div>
                   <div className="shrink-0 text-right">
                     <p className="text-lg font-bold text-gray-900">{total.toFixed(2)} PLN</p>
-                    <p className="text-xs text-gray-400">{order.items.length} poz.</p>
+                    <p className="text-xs text-gray-400">{order.items.length} {t.admin.items}</p>
                   </div>
                 </div>
 
@@ -91,7 +87,12 @@ export default async function AdminPage() {
                 </div>
 
                 <div className="flex justify-end">
-                  <AdminActions orderId={order.id} />
+                  <AdminActions
+                    orderId={order.id}
+                    approveLabel={t.admin.approve}
+                    rejectLabel={t.admin.reject}
+                    rejectConfirm={t.admin.rejectConfirm}
+                  />
                 </div>
               </div>
             )

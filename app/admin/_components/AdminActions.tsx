@@ -3,7 +3,14 @@
 import { useTransition } from 'react'
 import { approveOrder, rejectOrder } from '@/app/orders/actions'
 
-export default function AdminActions({ orderId }: { orderId: string }) {
+type Props = {
+  orderId: string
+  approveLabel: string
+  rejectLabel: string
+  rejectConfirm: string
+}
+
+export default function AdminActions({ orderId, approveLabel, rejectLabel, rejectConfirm }: Props) {
   const [isPending, startTransition] = useTransition()
 
   function approve() {
@@ -11,7 +18,7 @@ export default function AdminActions({ orderId }: { orderId: string }) {
   }
 
   function reject() {
-    if (!confirm('Odrzucić to zamówienie?')) return
+    if (!confirm(rejectConfirm)) return
     startTransition(() => { rejectOrder(orderId) })
   }
 
@@ -23,7 +30,7 @@ export default function AdminActions({ orderId }: { orderId: string }) {
         disabled={isPending}
         className="px-3 py-1.5 text-sm font-medium text-green-700 border border-green-200 rounded-lg hover:bg-green-50 disabled:opacity-50 transition-colors"
       >
-        Zatwierdź
+        {approveLabel}
       </button>
       <button
         type="button"
@@ -31,7 +38,7 @@ export default function AdminActions({ orderId }: { orderId: string }) {
         disabled={isPending}
         className="px-3 py-1.5 text-sm font-medium text-red-600 border border-red-200 rounded-lg hover:bg-red-50 disabled:opacity-50 transition-colors"
       >
-        Odrzuć
+        {rejectLabel}
       </button>
     </div>
   )
