@@ -21,7 +21,7 @@ export default function LanguageSwitcher({ current }: { current: Lang }) {
     <button
       onClick={toggle}
       disabled={isPending}
-      className="text-xs font-medium text-gray-500 hover:text-gray-900 disabled:opacity-50 transition-colors border border-gray-200 rounded px-2 py-1"
+      className="text-xs font-medium text-slate-400 hover:text-white disabled:opacity-50 transition-colors border border-slate-700 rounded px-2 py-1 hover:border-slate-500"
     >
       {current === 'pl' ? 'EN' : 'PL'}
     </button>

@@ -4,15 +4,15 @@ import { getOrders } from '@/lib/queries'
 import { getDict, LANG_COOKIE, type Lang } from '@/lib/i18n'
 
 const PRIORITY_BADGE: Record<string, string> = {
-  low: 'bg-gray-100 text-gray-700',
-  medium: 'bg-yellow-100 text-yellow-800',
-  high: 'bg-red-100 text-red-700',
+  low: 'bg-slate-100 text-slate-700 border border-slate-200',
+  medium: 'bg-amber-100 text-amber-800 border border-amber-200',
+  high: 'bg-red-100 text-red-800 border border-red-200',
 }
 const STATUS_BADGE: Record<string, string> = {
-  PENDING: 'bg-blue-100 text-blue-700',
-  APPROVED: 'bg-green-100 text-green-700',
-  REJECTED: 'bg-red-100 text-red-700',
-  CANCELLED: 'bg-gray-100 text-gray-500',
+  PENDING: 'bg-blue-100 text-blue-800 border border-blue-200',
+  APPROVED: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+  REJECTED: 'bg-red-100 text-red-800 border border-red-200',
+  CANCELLED: 'bg-slate-100 text-slate-600 border border-slate-200',
 }
 
 export default async function OrdersPage() {
@@ -23,69 +23,69 @@ export default async function OrdersPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">{t.orders.title}</h1>
+        <h1 className="text-2xl font-bold text-slate-900">{t.orders.title}</h1>
         <Link
           href="/orders/new"
-          className="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 transition-colors"
+          className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
         >
           {t.orders.newButton}
         </Link>
       </div>
 
       {orders.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-lg">{t.orders.empty}</p>
+        <div className="text-center py-20 text-slate-500">
+          <p className="text-lg font-medium">{t.orders.empty}</p>
           <p className="text-sm mt-1">
-            <Link href="/orders/new" className="text-gray-600 underline">
+            <Link href="/orders/new" className="text-indigo-600 hover:text-indigo-800 underline underline-offset-2">
               {t.orders.emptyLink}
             </Link>
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-[640px]">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t.orders.cols.employee}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t.orders.cols.department}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t.orders.cols.priority}</th>
-                <th className="text-right px-4 py-3 font-medium text-gray-600">{t.orders.cols.value}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t.orders.cols.status}</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">{t.orders.cols.date}</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700">{t.orders.cols.employee}</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700">{t.orders.cols.department}</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700">{t.orders.cols.priority}</th>
+                <th className="text-right px-4 py-3 font-semibold text-slate-700">{t.orders.cols.value}</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700">{t.orders.cols.status}</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700">{t.orders.cols.date}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {orders.map((order) => {
                 const total = order.items.reduce(
                   (sum, item) => sum + item.quantity * item.unitValue,
                   0
                 )
                 return (
-                  <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={order.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-4 py-3">
                       <Link
                         href={`/orders/${order.id}`}
-                        className="font-medium text-gray-900 hover:underline"
+                        className="font-semibold text-indigo-700 hover:text-indigo-900 hover:underline underline-offset-2"
                       >
                         {order.employeeName}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{order.department}</td>
+                    <td className="px-4 py-3 text-slate-700">{order.department}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${PRIORITY_BADGE[order.priority] ?? 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${PRIORITY_BADGE[order.priority] ?? 'bg-slate-100 text-slate-700'}`}>
                         {t.priority[order.priority as keyof typeof t.priority] ?? order.priority}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-right font-medium text-gray-900">
+                    <td className="px-4 py-3 text-right font-semibold text-slate-900">
                       {total.toFixed(2)} PLN
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_BADGE[order.status] ?? 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${STATUS_BADGE[order.status] ?? 'bg-slate-100 text-slate-600'}`}>
                         {t.status[order.status as keyof typeof t.status] ?? order.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-500">
+                    <td className="px-4 py-3 text-slate-600">
                       {new Date(order.createdAt).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pl-PL')}
                     </td>
                   </tr>

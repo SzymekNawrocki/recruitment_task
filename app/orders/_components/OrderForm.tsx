@@ -2,6 +2,10 @@
 
 import { useState, useTransition } from 'react'
 import Link from 'next/link'
+import {
+  Mouse, Keyboard, Monitor, Headphones, Plug, Camera,
+  Laptop, Square, Usb, Cable, Zap, Package,
+} from 'lucide-react'
 import type { CatalogItem, Order, OrderItem } from '@/app/generated/prisma/client'
 import { createOrder, updateOrder } from '../actions'
 import { useT } from '@/app/_components/LanguageProvider'
@@ -17,6 +21,21 @@ type LineItem = {
 type Props = {
   catalog: CatalogItem[]
   order?: Order & { items: OrderItem[] }
+}
+
+const ITEM_ICON: Record<string, React.ElementType> = {
+  'Mysz optyczna Logitech MX Master 3': Mouse,
+  'Klawiatura mechaniczna Keychron K2': Keyboard,
+  'Monitor 24" Full HD Dell': Monitor,
+  'Monitor 27" 4K LG': Monitor,
+  'Słuchawki z mikrofonem Sony WH-1000XM5': Headphones,
+  'Stacja dokująca USB-C Anker 13-in-1': Plug,
+  'Kamera internetowa Logitech C920 HD': Camera,
+  'Podstawka pod laptopa Nexstand K2': Laptop,
+  'Podkładka pod mysz XL': Square,
+  'Hub USB 4-portowy': Usb,
+  'Kabel HDMI 2m': Cable,
+  'Zasilacz UPS 650VA': Zap,
 }
 
 const PRIORITY_OPTIONS = [
@@ -93,13 +112,13 @@ export default function OrderForm({ catalog, order }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {errors._ && (
-        <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+        <div className="p-4 bg-red-50 border border-red-300 text-red-800 rounded-lg text-sm font-medium">
           {errors._}
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <h2 className="font-semibold text-gray-800">{t.form.sectionInfo}</h2>
+      <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-sm">
+        <h2 className="font-semibold text-slate-900">{t.form.sectionInfo}</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Field label={t.form.employeeName} error={errors.employeeName}>
@@ -146,43 +165,49 @@ export default function OrderForm({ catalog, order }: Props) {
         </Field>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <h2 className="font-semibold text-gray-800">{t.form.sectionCatalog}</h2>
-        {errors.items && <p className="text-sm text-red-600">{errors.items}</p>}
+      <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-sm">
+        <h2 className="font-semibold text-slate-900">{t.form.sectionCatalog}</h2>
+        {errors.items && <p className="text-sm text-red-700 font-medium">{errors.items}</p>}
 
         {Object.entries(byCategory).map(([cat, items]) => (
           <div key={cat}>
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">{cat}</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">{cat}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {items.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => addItem(item)}
-                  className="flex justify-between items-center px-3 py-2 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-50 text-left transition-colors text-sm"
-                >
-                  <span className="text-gray-800">{item.name}</span>
-                  <span className="text-gray-500 ml-2 shrink-0">{item.unitValue.toFixed(0)} PLN</span>
-                </button>
-              ))}
+              {items.map((item) => {
+                const Icon = ITEM_ICON[item.name] ?? Package
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => addItem(item)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-left transition-colors text-sm group"
+                  >
+                    <div className="w-8 h-8 shrink-0 rounded-md bg-slate-100 group-hover:bg-indigo-100 flex items-center justify-center text-slate-500 group-hover:text-indigo-600 transition-colors">
+                      <Icon size={16} />
+                    </div>
+                    <span className="flex-1 text-slate-800 font-medium">{item.name}</span>
+                    <span className="text-slate-600 ml-2 shrink-0 font-semibold">{item.unitValue.toFixed(0)} PLN</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
         ))}
       </div>
 
       {lines.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-3">
-          <h2 className="font-semibold text-gray-800">{t.form.sectionItems}</h2>
-          <div className="divide-y divide-gray-100">
+        <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-3 shadow-sm">
+          <h2 className="font-semibold text-slate-900">{t.form.sectionItems}</h2>
+          <div className="divide-y divide-slate-100">
             {lines.map((line, i) => (
-              <div key={i} className="flex items-center gap-3 py-2">
-                <span className="flex-1 text-sm text-gray-800">{line.name}</span>
-                <span className="text-xs text-gray-400">{line.unitValue.toFixed(0)} PLN/szt.</span>
+              <div key={i} className="flex items-center gap-3 py-2.5">
+                <span className="flex-1 text-sm text-slate-800 font-medium">{line.name}</span>
+                <span className="text-xs text-slate-500">{line.unitValue.toFixed(0)} PLN/szt.</span>
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
                     onClick={() => updateQty(i, Math.max(1, line.quantity - 1))}
-                    className="w-6 h-6 rounded border border-gray-200 text-gray-500 hover:bg-gray-100 text-sm leading-none"
+                    className="w-7 h-7 rounded border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm leading-none font-semibold"
                   >
                     −
                   </button>
@@ -195,23 +220,23 @@ export default function OrderForm({ catalog, order }: Props) {
                       const v = Math.min(20, Math.max(1, parseInt(e.target.value) || 1))
                       updateQty(i, v)
                     }}
-                    className="w-12 text-center border border-gray-200 rounded text-sm py-0.5"
+                    className="w-12 text-center border border-slate-300 rounded text-sm py-1 text-slate-900 font-semibold"
                   />
                   <button
                     type="button"
                     onClick={() => updateQty(i, Math.min(20, line.quantity + 1))}
-                    className="w-6 h-6 rounded border border-gray-200 text-gray-500 hover:bg-gray-100 text-sm leading-none"
+                    className="w-7 h-7 rounded border border-slate-300 text-slate-600 hover:bg-slate-100 text-sm leading-none font-semibold"
                   >
                     +
                   </button>
                 </div>
-                <span className="w-24 text-right text-sm font-medium text-gray-900">
+                <span className="w-24 text-right text-sm font-bold text-slate-900">
                   {(line.quantity * line.unitValue).toFixed(2)} PLN
                 </span>
                 <button
                   type="button"
                   onClick={() => removeLine(i)}
-                  className="text-gray-300 hover:text-red-500 transition-colors text-lg leading-none"
+                  className="text-slate-400 hover:text-red-600 transition-colors text-lg leading-none"
                 >
                   ×
                 </button>
@@ -219,28 +244,28 @@ export default function OrderForm({ catalog, order }: Props) {
             ))}
           </div>
 
-          <div className="pt-2 border-t border-gray-100 flex justify-between items-center">
-            <span className="text-sm text-gray-500">{t.form.subtotal}</span>
-            <span className={`text-lg font-semibold ${overBudget ? 'text-red-600' : 'text-gray-900'}`}>
+          <div className="pt-3 border-t border-slate-200 flex justify-between items-center">
+            <span className="text-sm font-medium text-slate-600">{t.form.subtotal}</span>
+            <span className={`text-xl font-bold ${overBudget ? 'text-red-700' : 'text-slate-900'}`}>
               {total.toFixed(2)} PLN
             </span>
           </div>
-          {overBudget && <p className="text-xs text-red-600">{t.form.overBudget}</p>}
-          {errors.total && <p className="text-sm text-red-600">{errors.total}</p>}
+          {overBudget && <p className="text-xs text-red-700 font-medium">{t.form.overBudget}</p>}
+          {errors.total && <p className="text-sm text-red-700 font-medium">{errors.total}</p>}
         </div>
       )}
 
       <div className="flex gap-3 justify-end">
         <Link
           href="/orders"
-          className="px-4 py-2 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
         >
           {t.form.cancel}
         </Link>
         <button
           type="submit"
           disabled={isPending}
-          className="px-5 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 disabled:opacity-50 transition-colors"
+          className="px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm"
         >
           {isPending ? t.form.saving : order ? t.form.save : t.form.submit}
         </button>
@@ -259,16 +284,16 @@ function Field({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+    <div className="flex flex-col gap-1.5">
+      <label className="text-sm font-semibold text-slate-700">{label}</label>
       {children}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-red-700 font-medium">{error}</p>}
     </div>
   )
 }
 
 function input(hasError: boolean) {
-  return `w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-300 ${
-    hasError ? 'border-red-400 bg-red-50' : 'border-gray-200'
+  return `w-full rounded-lg border px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 transition-colors ${
+    hasError ? 'border-red-400 bg-red-50' : 'border-slate-300 bg-white'
   }`
 }

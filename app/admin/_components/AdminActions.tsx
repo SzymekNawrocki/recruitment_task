@@ -28,7 +28,7 @@ export default function AdminActions({ orderId, approveLabel, rejectLabel, rejec
         type="button"
         onClick={approve}
         disabled={isPending}
-        className="px-3 py-1.5 text-sm font-medium text-green-700 border border-green-200 rounded-lg hover:bg-green-50 disabled:opacity-50 transition-colors"
+        className="px-4 py-2 text-sm font-semibold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors shadow-sm"
       >
         {approveLabel}
       </button>
@@ -36,7 +36,7 @@ export default function AdminActions({ orderId, approveLabel, rejectLabel, rejec
         type="button"
         onClick={reject}
         disabled={isPending}
-        className="px-3 py-1.5 text-sm font-medium text-red-600 border border-red-200 rounded-lg hover:bg-red-50 disabled:opacity-50 transition-colors"
+        className="px-4 py-2 text-sm font-semibold text-red-700 border border-red-300 rounded-lg hover:bg-red-50 disabled:opacity-50 transition-colors"
       >
         {rejectLabel}
       </button>

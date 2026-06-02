@@ -10,7 +10,7 @@ export default async function NewOrderPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">{t.newOrder.title}</h1>
+      <h1 className="text-2xl font-bold mb-6 text-slate-900">{t.newOrder.title}</h1>
       <OrderForm catalog={catalog} />
     </div>
   )

@@ -21,36 +21,37 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={lang} className={`${geist.variable} h-full`}>
-      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900 font-sans antialiased">
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans antialiased">
         <LanguageProvider lang={lang}>
-          <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+          <header className="bg-slate-900 sticky top-0 z-10 shadow-lg">
             <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-              <nav className="flex items-center gap-1">
-                <Link
-                  href="/orders"
-                  className="px-3 py-1.5 text-sm font-medium rounded hover:bg-gray-100 transition-colors"
-                >
-                  {t.nav.orders}
-                </Link>
-                <Link
-                  href="/orders/new"
-                  className="px-3 py-1.5 text-sm font-medium rounded hover:bg-gray-100 transition-colors"
-                >
-                  {t.nav.newOrder}
-                </Link>
-                <Link
-                  href="/admin"
-                  className="px-3 py-1.5 text-sm font-medium rounded hover:bg-gray-100 transition-colors"
-                >
-                  {t.nav.admin}
-                </Link>
-              </nav>
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-gray-400 font-medium tracking-wide uppercase">
+              <div className="flex items-center gap-6">
+                <span className="text-sm font-semibold text-white tracking-tight">
                   {t.app.title}
                 </span>
-                <LanguageSwitcher current={lang} />
+                <div className="w-px h-4 bg-slate-700" />
+                <nav className="flex items-center gap-1">
+                  <Link
+                    href="/orders"
+                    className="px-3 py-1.5 text-sm font-medium text-slate-300 rounded hover:bg-slate-800 hover:text-white transition-colors"
+                  >
+                    {t.nav.orders}
+                  </Link>
+                  <Link
+                    href="/orders/new"
+                    className="px-3 py-1.5 text-sm font-medium text-slate-300 rounded hover:bg-slate-800 hover:text-white transition-colors"
+                  >
+                    {t.nav.newOrder}
+                  </Link>
+                  <Link
+                    href="/admin"
+                    className="px-3 py-1.5 text-sm font-medium text-slate-300 rounded hover:bg-slate-800 hover:text-white transition-colors"
+                  >
+                    {t.nav.admin}
+                  </Link>
+                </nav>
               </div>
+              <LanguageSwitcher current={lang} />
             </div>
           </header>
           <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8">{children}</main>
