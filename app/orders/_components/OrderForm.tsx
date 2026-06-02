@@ -100,7 +100,7 @@ export default function OrderForm({ catalog, order }: Props) {
 
     startTransition(async () => {
       const result = order ? await updateOrder(order.id, formData) : await createOrder(formData)
-      if (!result.ok) setErrors(result.errors as ValidationErrors)
+      if (result && !result.ok) setErrors(result.errors as ValidationErrors)
     })
   }
 
@@ -171,7 +171,7 @@ export default function OrderForm({ catalog, order }: Props) {
 
         {Object.entries(byCategory).map(([cat, items]) => (
           <div key={cat}>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">{cat}</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">{t.catalog.categories[cat as keyof typeof t.catalog.categories] ?? cat}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {items.map((item) => {
                 const Icon = ITEM_ICON[item.name] ?? Package
@@ -185,7 +185,7 @@ export default function OrderForm({ catalog, order }: Props) {
                     <div className="w-8 h-8 shrink-0 rounded-md bg-slate-100 group-hover:bg-indigo-100 flex items-center justify-center text-slate-500 group-hover:text-indigo-600 transition-colors">
                       <Icon size={16} />
                     </div>
-                    <span className="flex-1 text-slate-800 font-medium">{item.name}</span>
+                    <span className="flex-1 text-slate-800 font-medium">{t.catalog.items[item.name as keyof typeof t.catalog.items] ?? item.name}</span>
                     <span className="text-slate-600 ml-2 shrink-0 font-semibold">{item.unitValue.toFixed(0)} PLN</span>
                   </button>
                 )
@@ -201,7 +201,7 @@ export default function OrderForm({ catalog, order }: Props) {
           <div className="divide-y divide-slate-100">
             {lines.map((line, i) => (
               <div key={i} className="flex items-center gap-3 py-2.5">
-                <span className="flex-1 text-sm text-slate-800 font-medium">{line.name}</span>
+                <span className="flex-1 text-sm text-slate-800 font-medium">{t.catalog.items[line.name as keyof typeof t.catalog.items] ?? line.name}</span>
                 <span className="text-xs text-slate-500">{line.unitValue.toFixed(0)} {t.form.perUnit}</span>
                 <div className="flex items-center gap-1">
                   <button

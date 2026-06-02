@@ -38,7 +38,7 @@ export default async function OrderDetailPage({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <Link href="/orders" className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline underline-offset-2">
-            ← {t.detail.back}
+            {t.detail.back}
           </Link>
           <h1 className="text-2xl font-bold mt-1 text-slate-900">{order.employeeName}</h1>
         </div>
@@ -102,7 +102,7 @@ export default async function OrderDetailPage({
           <tbody className="divide-y divide-slate-100">
             {order.items.map((item) => (
               <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-4 py-3 text-slate-800">{item.name}</td>
+                <td className="px-4 py-3 text-slate-800">{t.catalog.items[item.name as keyof typeof t.catalog.items] ?? item.name}</td>
                 <td className="px-4 py-3 text-right text-slate-600">{item.unitValue.toFixed(2)} PLN</td>
                 <td className="px-4 py-3 text-right text-slate-800">{item.quantity}</td>
                 <td className="px-4 py-3 text-right font-semibold text-slate-900">

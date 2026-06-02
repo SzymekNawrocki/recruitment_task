@@ -45,3 +45,8 @@ next-env.d.ts
 # SQLite database
 dev.db
 dev.db-journal
+
+# AI tooling
+CLAUDE.md
+AGENTS.md
+.claude/

@@ -73,7 +73,7 @@ export default async function AdminPage() {
                     <tbody className="divide-y divide-slate-50">
                       {order.items.map((item) => (
                         <tr key={item.id}>
-                          <td className="py-1.5 text-slate-800">{item.name}</td>
+                          <td className="py-1.5 text-slate-800">{t.catalog.items[item.name as keyof typeof t.catalog.items] ?? item.name}</td>
                           <td className="py-1.5 text-right text-slate-500">
                             {item.quantity} × {item.unitValue.toFixed(0)} PLN
                           </td>
