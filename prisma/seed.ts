@@ -1,14 +1,9 @@
 import 'dotenv/config'
-import path from 'path'
 import { PrismaClient } from '../app/generated/prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaMssql } from '@prisma/adapter-mssql'
+import { mssqlConfigFromUrl } from '../lib/db-config'
 
-function resolveDbUrl(raw: string | undefined): string {
-  const rel = raw?.startsWith('file:./') ? raw.slice(5) : './dev.db'
-  return `file:${path.resolve(rel).split('\\').join('/')}`
-}
-
-const adapter = new PrismaLibSql({ url: resolveDbUrl(process.env.DATABASE_URL) })
+const adapter = new PrismaMssql(mssqlConfigFromUrl(process.env.DATABASE_URL))
 const prisma = new PrismaClient({ adapter })
 
 async function main() {

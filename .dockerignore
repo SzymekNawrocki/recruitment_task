@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+dev.db
+dev.db-journal
+*.db
+.env
+.env.*
+!.env.example
+terraform/
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+README.md
+tsconfig.tsbuildinfo

@@ -50,3 +50,10 @@ dev.db-journal
 CLAUDE.md
 AGENTS.md
 .claude/
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfvars

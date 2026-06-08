@@ -1,0 +1,80 @@
+2026-06-08T15:17:51.0114142Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-06-08T15:17:52.3020246Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-06-08T15:17:56.7681101Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-06-08T15:17:56.7684094Z Container start method called.
+2026-06-08T15:17:56.7684862Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest for portalzamowien-app., DetailsLevel: INFO
+2026-06-08T15:17:56.7686187Z Establishing network.
+2026-06-08T15:17:56.7695036Z Pulling image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest.
+2026-06-08T15:17:58.3812235Z Container pull image failed with reason: ImagePullFailure. Revert by terminate.
+2026-06-08T15:17:58.3871150Z Container is terminating. Grace period: 5 seconds.
+2026-06-08T15:17:58.3895863Z Container spec TerminationMessagePolicy  path 
+2026-06-08T15:17:58.3931892Z Container is terminated. Total time elapsed: 5 ms.
+2026-06-08T15:17:58.3934524Z Site container: portalzamowien-app terminated during site startup.
+2026-06-08T15:17:58.3978580Z State: Stopping, Action: CancellingStartup, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site container: portalzamowien-app terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-06-08T15:17:58.4132511Z State: Stopping, Action: CancellingStartup, LastError: ImageNotFoundFailure, LastErrorTimestamp: 06/08/2026 15:17:58, LastErrorDetails: Failed to pull image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest. Image pull failed because the image was not found. Check the registry to ensure the image is present or check for any misspellings., Details: Site container: portalzamowien-app terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-06-08T15:17:58.4243764Z Failed to start site. Revert by stopping site.
+2026-06-08T15:17:58.4360223Z State: Stopping, Action: StoppingSite, LastError: ImageNotFoundFailure, LastErrorTimestamp: 06/08/2026 15:17:58, LastErrorDetails: Failed to pull image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest. Image pull failed because the image was not found. Check the registry to ensure the image is present or check for any misspellings., Details: Site container: portalzamowien-app terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-06-08T15:17:58.4387951Z State: Stopping, Action: StoppingSiteContainers, LastError: ImageNotFoundFailure, LastErrorTimestamp: 06/08/2026 15:17:58, LastErrorDetails: Failed to pull image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest. Image pull failed because the image was not found. Check the registry to ensure the image is present or check for any misspellings., Details: Site container: portalzamowien-app terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-06-08T15:17:58.8076215Z Site container: portalzamowien-app_managedIdentity terminated during site startup.
+2026-06-08T15:17:58.8089091Z State: Stopping, Action: StoppingSiteContainers, LastError: ImageNotFoundFailure, LastErrorTimestamp: 06/08/2026 15:17:58, LastErrorDetails: Failed to pull image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest. Image pull failed because the image was not found. Check the registry to ensure the image is present or check for any misspellings., Details: Site container: portalzamowien-app terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-06-08T15:17:58.8102739Z Site: portalzamowien-app stopped.
+2026-06-08T15:18:32.620Z INFO  - Pulling image: mcr.microsoft.com/appsvc/msitokenservice:stage5
+2026-06-08T15:18:32.918Z INFO  - stage5 Pulling from appsvc/msitokenservice
+2026-06-08T15:18:33.013Z INFO  - 5e5b36758685 Already exists
+2026-06-08T15:18:33.096Z INFO  - d12740de851f Already exists
+2026-06-08T15:18:33.157Z INFO  - ff86293c9e8b Pulling fs layer
+2026-06-08T15:18:33.159Z INFO  - 4f4fb700ef54 Pulling fs layer
+2026-06-08T15:18:33.160Z INFO  - 2cf9343f1fe1 Pulling fs layer
+2026-06-08T15:18:33.163Z INFO  - 61762e38b07d Pulling fs layer
+2026-06-08T15:18:33.390Z INFO  - 4f4fb700ef54 Downloading 32B / 32B
+2026-06-08T15:18:33.395Z INFO  - 4f4fb700ef54 Verifying Checksum
+2026-06-08T15:18:33.397Z INFO  - 4f4fb700ef54 Download complete
+2026-06-08T15:18:33.434Z INFO  - ff86293c9e8b Verifying Checksum
+2026-06-08T15:18:33.452Z INFO  - ff86293c9e8b Download complete
+2026-06-08T15:18:33.603Z INFO  - 2cf9343f1fe1 Downloading 6MB / 21MB
+2026-06-08T15:18:33.805Z INFO  - 61762e38b07d Downloading 13MB / 21MB
+2026-06-08T15:18:33.905Z INFO  - 61762e38b07d Downloading 19MB / 21MB
+2026-06-08T15:18:33.943Z INFO  - 2cf9343f1fe1 Verifying Checksum
+2026-06-08T15:18:33.951Z INFO  - 2cf9343f1fe1 Download complete
+2026-06-08T15:18:34.039Z INFO  - 61762e38b07d Verifying Checksum
+2026-06-08T15:18:34.042Z INFO  - 61762e38b07d Download complete
+2026-06-08T15:18:34.378Z INFO  - ff86293c9e8b Extracting 6MB / 6MB
+2026-06-08T15:18:34.409Z INFO  - ff86293c9e8b Extracting 6MB / 6MB
+2026-06-08T15:18:35.049Z INFO  - ff86293c9e8b Pull complete
+2026-06-08T15:18:35.150Z INFO  - 4f4fb700ef54 Extracting 32B / 32B
+2026-06-08T15:18:35.269Z INFO  - 4f4fb700ef54 Extracting 32B / 32B
+2026-06-08T15:18:36.065Z INFO  - 4f4fb700ef54 Pull complete
+2026-06-08T15:18:36.344Z INFO  - 2cf9343f1fe1 Extracting 1MB / 21MB
+2026-06-08T15:18:36.555Z INFO  - 2cf9343f1fe1 Extracting 4MB / 21MB
+2026-06-08T15:18:36.842Z INFO  - 2cf9343f1fe1 Extracting 7MB / 21MB
+2026-06-08T15:18:36.871Z INFO  - 2cf9343f1fe1 Extracting 9MB / 21MB
+2026-06-08T15:18:37.152Z INFO  - 2cf9343f1fe1 Extracting 13MB / 21MB
+2026-06-08T15:18:38.159Z INFO  - 2cf9343f1fe1 Extracting 21MB / 21MB
+2026-06-08T15:18:44.136Z INFO  - 2cf9343f1fe1 Pull complete
+2026-06-08T15:18:45.413Z INFO  - 61762e38b07d Extracting 4MB / 21MB
+2026-06-08T15:18:45.675Z INFO  - 61762e38b07d Extracting 4MB / 21MB
+2026-06-08T15:18:45.821Z INFO  - 61762e38b07d Extracting 5MB / 21MB
+2026-06-08T15:18:46.140Z INFO  - 61762e38b07d Extracting 5MB / 21MB
+2026-06-08T15:18:47.067Z INFO  - 61762e38b07d Extracting 11MB / 21MB
+2026-06-08T15:18:47.607Z INFO  - 61762e38b07d Extracting 12MB / 21MB
+2026-06-08T15:18:47.626Z INFO  - 61762e38b07d Extracting 13MB / 21MB
+2026-06-08T15:18:48.069Z INFO  - 61762e38b07d Extracting 15MB / 21MB
+2026-06-08T15:18:48.404Z INFO  - 61762e38b07d Extracting 18MB / 21MB
+2026-06-08T15:18:48.925Z INFO  - 61762e38b07d Extracting 19MB / 21MB
+2026-06-08T15:18:49.200Z INFO  - 61762e38b07d Extracting 21MB / 21MB
+2026-06-08T15:18:50.095Z INFO  - 61762e38b07d Pull complete
+2026-06-08T15:18:52.710Z INFO  -  Digest: sha256:87e292c11a9f1b68dcbfe9785ceca58e44e366f163f7fbf2ad2fb1e6c13fde18
+2026-06-08T15:18:52.798Z INFO  -  Status: Downloaded newer image for mcr.microsoft.com/appsvc/msitokenservice:stage5
+2026-06-08T15:18:52.840Z INFO  - Pull Image successful, Time taken: 20 Seconds
+2026-06-08T15:18:56.686Z INFO  - Starting container for site
+2026-06-08T15:18:56.687Z INFO  - docker run -d --expose=8081 --name portalzamowien-app_0_226fbaaf_msiProxy -e WEBSITE_ROLE_INSTANCE_ID=0 -e WEBSITE_HOSTNAME=portalzamowien-app.azurewebsites.net -e WEBSITE_INSTANCE_ID=ea21fb003f203e8f7dc61c2d21ff73ceef054b2a15777c23c32e20cab9128589 mcr.microsoft.com/appsvc/msitokenservice:stage5 
+2026-06-08T15:18:56.690Z INFO  - Logging is not enabled for this container.
+Please use https://aka.ms/linux-diagnostics to enable logging to see container logs here.
+2026-06-08T15:19:09.350Z INFO  - Pulling image: portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest
+2026-06-08T15:19:09.884Z ERROR - DockerApiException: Docker API responded with status code=NotFound, response={"message":"manifest for portalzamowienacr.azurecr.io/portalzamowienacr.azurecr.io/portalzamowien:latest not found: manifest unknown: manifest tagged by \"latest\" is not found"}
+
+2026-06-08T15:19:09.990Z ERROR - DockerApiException: Docker API responded with status code=InternalServerError, response={"message":"Head \"https://portalzamowienacr.azurecr.io/v2/portalzamowienacr.azurecr.io/portalzamowien/manifests/latest\": unauthorized: {\"errors\":[{\"code\":\"UNAUTHORIZED\",\"message\":\"authentication required, visit https://aka.ms/acr/authorization for more information. CorrelationId: dead56e1-c466-46da-a9ad-f23d3d8fb04a\"}]}"}
+
+2026-06-08T15:19:09.991Z WARN  - Image pull failed. Defaulting to local copy if present.
+2026-06-08T15:19:10.001Z ERROR - Image pull failed: Verify docker image configuration and credentials (if using private repository)
+2026-06-08T15:19:18.111Z INFO  - Stopping site portalzamowien-app because it failed during startup.

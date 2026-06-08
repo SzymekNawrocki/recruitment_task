@@ -1,0 +1,46 @@
+2026-06-08T15:46:14.789402030Z node:fs:573
+2026-06-08T15:46:14.790927297Z   return binding.open(
+2026-06-08T15:46:14.790932948Z                  ^
+2026-06-08T15:46:14.790936915Z 
+2026-06-08T15:46:14.790941133Z Error: ENOENT: no such file or directory, open '/app/node_modules/.bin/prisma_schema_build_bg.wasm'
+2026-06-08T15:46:14.790945331Z     at Object.openSync (node:fs:573:18)
+2026-06-08T15:46:14.790948998Z     at Object.readFileSync (node:fs:452:35)
+2026-06-08T15:46:14.790952615Z     at /app/node_modules/.bin/prisma:47:10952
+2026-06-08T15:46:14.790956301Z     at /app/node_modules/.bin/prisma:2:263
+2026-06-08T15:46:14.790960039Z     at Object.<anonymous> (/app/node_modules/.bin/prisma:191:154)
+2026-06-08T15:46:14.790964327Z     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2026-06-08T15:46:14.790968074Z     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+2026-06-08T15:46:14.790972091Z     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2026-06-08T15:46:14.790975818Z     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2026-06-08T15:46:14.790979725Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+2026-06-08T15:46:14.790983563Z   errno: -2,
+2026-06-08T15:46:14.790987210Z   code: 'ENOENT',
+2026-06-08T15:46:14.790990866Z   syscall: 'open',
+2026-06-08T15:46:14.790994493Z   path: '/app/node_modules/.bin/prisma_schema_build_bg.wasm'
+2026-06-08T15:46:14.790998160Z }
+2026-06-08T15:46:14.791001817Z 
+2026-06-08T15:46:14.791005393Z Node.js v20.20.2
+
+2026-06-08T16:00:27.230576422Z node:fs:573
+2026-06-08T16:00:27.230692499Z   return binding.open(
+2026-06-08T16:00:27.230698380Z                  ^
+2026-06-08T16:00:27.230702518Z 
+2026-06-08T16:00:27.230706515Z Error: ENOENT: no such file or directory, open '/app/node_modules/.bin/prisma_schema_build_bg.wasm'
+2026-06-08T16:00:27.230710433Z     at Object.openSync (node:fs:573:18)
+2026-06-08T16:00:27.230714090Z     at Object.readFileSync (node:fs:452:35)
+2026-06-08T16:00:27.230717806Z     at /app/node_modules/.bin/prisma:47:10952
+2026-06-08T16:00:27.230721433Z     at /app/node_modules/.bin/prisma:2:263
+2026-06-08T16:00:27.230725130Z     at Object.<anonymous> (/app/node_modules/.bin/prisma:191:154)
+2026-06-08T16:00:27.230729719Z     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2026-06-08T16:00:27.230733616Z     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+2026-06-08T16:00:27.230737463Z     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2026-06-08T16:00:27.230741210Z     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2026-06-08T16:00:27.230745017Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+2026-06-08T16:00:27.230748885Z   errno: -2,
+2026-06-08T16:00:27.230752611Z   code: 'ENOENT',
+2026-06-08T16:00:27.230756198Z   syscall: 'open',
+2026-06-08T16:00:27.230760226Z   path: '/app/node_modules/.bin/prisma_schema_build_bg.wasm'
+2026-06-08T16:00:27.230764063Z }
+2026-06-08T16:00:27.230767780Z 
+2026-06-08T16:00:27.230771326Z Node.js v20.20.2
+
